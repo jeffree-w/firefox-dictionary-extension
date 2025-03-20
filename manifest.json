@@ -1,11 +1,10 @@
 {
     "manifest_version": 2,
-    "name": "Highlight Dictionary",
+    "name": "Local Dictionary",
     "version": "1.0",
-    "description": "Highlight a word and get its meaning when you hover over it.",
+    "description": "Double click on any word to get its meaning",
     "permissions": [
-      "activeTab",
-      "https://api.dictionaryapi.dev/*"
+      "activeTab"
     ],
     "background": {
       "scripts": ["background.js"],
@@ -14,7 +13,7 @@
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["content.js"]
+        "js": ["dictionary.js"]
       }
     ],
     "browser_action": {
