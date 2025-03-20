@@ -1,0 +1,2 @@
+# firefox-dictionary-extension
+ 
