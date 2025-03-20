@@ -12,10 +12,11 @@ document.addEventListener('mouseup', function (event) {
     tooltip.style.position = 'absolute';
     tooltip.style.left = `${x + 10}px`;
     tooltip.style.top = `${y + 10}px`;
-    tooltip.style.background = 'rgba(0, 0, 0, 0.8)';
-    tooltip.style.color = 'white';
+    tooltip.style.background = 'rgb(255, 255, 255)';
+    tooltip.style.color = 'black';
     tooltip.style.padding = '5px';
     tooltip.style.borderRadius = '5px';
+    tooltip.style.stroke = "black" //oversee
     tooltip.style.maxWidth = '300px';
     tooltip.style.zIndex = '9999';
     
@@ -33,19 +34,11 @@ document.addEventListener('mouseup', function (event) {
     });
   }
   
-  async function fetchMeaning(word) {
-    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data[0]?.meanings[0]?.definitions[0]?.definition || 'No definition available';
-  }
-  
-
   const getDefinition = async (word) => {
     const dir = word.slice(0, 1);
     const file = word.slice(0, 2);
 
-    const url = `${baseURL}/${dir}/${file}.json`;
+    const url = `${api}/${dir}/${file}.json`;
 
     const definitions = await fetch(url).then(res => res.json());
 
