@@ -1,39 +1,46 @@
-document.addEventListener('mouseup', function (event) {
-    const selectedText = window.getSelection().toString().trim();
-    if (selectedText.length > 0) {
-      // Create a tooltip to display the word meaning
+document.addEventListener('dblclick', function (event) {
+  const selectedText = window.getSelection().toString().trim();
+  if (selectedText.length > 0) {
       showTooltip(event.pageX, event.pageY, selectedText);
+  }
+});
+
+  
+function showTooltip(x, y, word) {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'tooltip'; 
+  console.log(word)
+
+  Object.assign(tooltip.style, {
+    position: 'absolute',
+    left: `${x + 10}px`,
+    top: `${y + 10}px`,
+    background: '#fff',
+    color: '#000',
+    padding: '5px',
+    borderRadius: '5px',
+    border: '1px solid black',
+    maxWidth: '300px',
+    zIndex: '9999',
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
+    fontSize: '14px'
+});
+
+  getDefinition(word).then((meaning) => {
+      tooltip.innerHTML = meaning;
+  }).catch(() => {
+      tooltip.innerHTML = 'Definition not found';
+  });
+
+  document.body.appendChild(tooltip);
+
+  document.addEventListener('mousemove', () => {
+    if (tooltip) {
+        tooltip.remove();
     }
   });
-  
-  function showTooltip(x, y, word) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    tooltip.style.position = 'absolute';
-    tooltip.style.left = `${x + 10}px`;
-    tooltip.style.top = `${y + 10}px`;
-    tooltip.style.background = 'rgb(255, 255, 255)';
-    tooltip.style.color = 'black';
-    tooltip.style.padding = '5px';
-    tooltip.style.borderRadius = '5px';
-    tooltip.style.stroke = "black" //oversee
-    tooltip.style.maxWidth = '300px';
-    tooltip.style.zIndex = '9999';
-    
-    fetchMeaning(word).then((meaning) => {
-      tooltip.innerHTML = meaning;
-    }).catch(() => {
-      tooltip.innerHTML = 'Definition not found';
-    });
-  
-    document.body.appendChild(tooltip);
-  
-    // Hide tooltip when mouse is moved
-    tooltip.addEventListener('mouseover', function() {
-      tooltip.style.display = 'none';
-    });
-  }
-  
+}
+
   const getDefinition = async (word) => {
     const dir = word.slice(0, 1);
     const file = word.slice(0, 2);

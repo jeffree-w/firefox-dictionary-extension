@@ -1,4 +1,4 @@
-# firefox-dictionary-extension
+# Local Dictionary
 
 ## Overview
 
